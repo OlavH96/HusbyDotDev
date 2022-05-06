@@ -1,0 +1,27 @@
+.App {
+
+  display: grid;
+  grid-template:
+    "H H H" 5rem
+    "C C C" 1fr
+    "C C C" 1fr
+    / 1fr 1fr 1fr;
+
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.nav {
+  grid-area: H;
+}
+
+.content {
+  grid-area: C;
+}
+
+:root {
+  color: white;
+  background-color: #282c34;
+  --text-color-main: #71b780;
+}

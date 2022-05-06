@@ -1,0 +1,16 @@
+.link {
+	background-color: transparent;
+	color: #71b780;
+	font-size: 75%;
+	padding: 10px 20px 10px 20px;
+	margin: 0.1em;
+	transition: 0.2s ease-in-out;
+	border: 1px solid #71b780;
+	border-radius: 25px;
+	text-decoration: none;
+}
+
+.link:hover{
+	background-color: #71b780;
+	color: black;
+}

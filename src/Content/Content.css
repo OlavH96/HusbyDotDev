@@ -1,0 +1,16 @@
+.content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.content > * {
+	margin-bottom: 5rem;
+}
+
+.links {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
