@@ -22,9 +22,13 @@ function attractAll(planetoids: Planet[]) {
 export default function PlanetsCanvas() {
 
 	var sun = new Planet({ planet: { r: 20, m: 333054 }, draw: { x: canvas.w / 2, y: canvas.h / 2, color: "yellow" }, movement: { a: 0, v: 0, direction: { x: 0, y: 0 } } });
-	var mercury = new Planet({ planet: {r: 5, m: 0.0553}, draw: { x: 600, y: 200, color: "gray" }, movement:{ a: 0, v: 0.01, direction: { x: 10, y: 10 } }});
-	var venus = new Planet({ planet: {r: 5, m: 0.815}, draw: { x: 0, y: 700, color: "orange" }, movement:{ a: 0, v: 0.01, direction: { x: 10, y: 10 } }});
-	var earth = new Planet({ planet: {r: 10, m: 1}, draw: { x: 800, y: 200, color: "#71b780" }, movement:{ a: 0, v: 0.01, direction: { x: 10, y: 10 } }});
+	//var mercury = new Planet({ planet: {r: 5, m: 0.0553}, draw: { x: 600, y: 200, color: "gray" }, movement:{ a: 0, v: 0.01, direction: { x: 0, y: 0 } }});
+	//var venus = new Planet({ planet: {r: 5, m: 0.815}, draw: { x: 0, y: 700, color: "orange" }, movement:{ a: 0, v: 0.01, direction: { x: 0, y: 0 } }});
+	var earth = new Planet({ planet: {r: 10, m: 1}, draw: { x: 800, y: 200, color: "#71b780" }, movement:{ a: 0, v: 0.01, direction: { x: 0, y: 0 } }});
+	//var mars = new Planet({ planet: { r: 10, m: 0.107 }, draw: { x: 0, y: 0, color: "red" }, movement: { a: 0, v: 0.01, direction: { x: 0, y: 0 } } });
+	
+	let planets = [earth];
+	//let planets = [mercury, venus, earth, mars];
 
 	const setup = (p5: any, canvasParentRef: Element) => {
 		// use parent to render the canvas in this ref
@@ -34,30 +38,26 @@ export default function PlanetsCanvas() {
 
 	const draw = (p5: any) => {
 		p5.background("#282c34");
+
+		planets.forEach(p => p.attractTo(sun));
 		
-		earth.attractTo(sun);
-		mercury.attractTo(sun);
-		venus.attractTo(sun);
-		attractAll([mercury, venus, earth])
-		//earth.attractTo(sun);
-		//earth.attractTo(mercury);
-		//earth.attractTo(venus);
-
-		//mercury.attractTo(sun);
-		//mercury.attractTo(earth);
-		//mercury.attractTo(venus);
-
-		//venus.attractTo(sun);
-		//venus.attractTo(earth);
-		//venus.attractTo(mercury);
+		attractAll(planets)
 
 		sun.draw(p5);
-		earth.draw(p5);
-		mercury.draw(p5);
-		venus.draw(p5);
+		planets.forEach(p => p.draw(p5));
 	};
+	const add = (p5: any) => {
+		console.log(p5);
+		if (!(p5.mouseX > 0 && p5.mouseY > 0)) return;
+		
+		planets.push(
+		  new Planet({ planet: { r: 10, m: 0.107 }, draw: { x: p5.mouseX, y: p5.mouseY, color: "white" }, movement: { a: 0, v: 0.01, direction: { x: 0, y: 0 } } })
+		);
+	}
 
 	return (
-		<Sketch setup={setup} draw={draw} />
+		<div>
+			<Sketch setup={setup} draw={draw} mouseClicked={add} />
+		</div>
 	)
 }

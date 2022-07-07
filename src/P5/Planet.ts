@@ -55,12 +55,8 @@ export default class Planet {
 
         this.calculateXYChange();
     }
+
     calculateXYChange() {
-        console.log("Calculate XY Change");
-        console.log("Movement",this.movement.direction);
-        console.log("V",this.movement.v);
-        
-        
         //this.movement.v += this.movement.a;
         this.drawInfo.x += this.movement.direction.x * this.movement.v;
         this.drawInfo.y += this.movement.direction.y * this.movement.v;
@@ -69,6 +65,5 @@ export default class Planet {
     draw(p5: p5Types) {
         p5.fill(this.drawInfo.color!);
         p5.circle(this.drawInfo.x, this.drawInfo.y, 2 * this.planetInfo.r);
-        p5.point(this.drawInfo.x, this.drawInfo.y, 2 * this.planetInfo.r);
     }
 }
