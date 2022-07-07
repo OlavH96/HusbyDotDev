@@ -53,11 +53,6 @@ export default class Planet {
         this.movement.direction.x += (dirV.x / d);
         this.movement.direction.y += (dirV.y / d);
 
-        //console.log("earth",this);
-        //console.log("sun",other);
-        //console.log(dirV);
-        //this.drawInfo.x -= dirV.x * G * F;
-        //this.drawInfo.y -= dirV.y * G * F;
         this.calculateXYChange();
     }
     calculateXYChange() {
@@ -66,15 +61,14 @@ export default class Planet {
         console.log("V",this.movement.v);
         
         
-        this.movement.v += this.movement.a;
+        //this.movement.v += this.movement.a;
         this.drawInfo.x += this.movement.direction.x * this.movement.v;
         this.drawInfo.y += this.movement.direction.y * this.movement.v;
     }
 
     draw(p5: p5Types) {
-        p5.color(this.drawInfo.color!);
+        p5.fill(this.drawInfo.color!);
         p5.circle(this.drawInfo.x, this.drawInfo.y, 2 * this.planetInfo.r);
-        p5.color("#FF0000");
         p5.point(this.drawInfo.x, this.drawInfo.y, 2 * this.planetInfo.r);
     }
 }
