@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Navbar from './Navbar/Navbar';
 import Content from './Content/Content';
+import PlanetsCanvas from './P5/PlanetsCanvas';
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
         <Navbar />
       </div>
       <div className='content'>
-        <Content />
+        {/* <Content /> */}
+        <PlanetsCanvas/>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import './Content.css'
 import Link from '../Components/Link';
 import Bio from './Bio/Bio';
 
+
 export default function Content() {
 	return (
 		<div className='content'>
