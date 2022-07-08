@@ -41,9 +41,26 @@ export default class Planet {
         this.drawInfo = props.draw;
         this.movement = props.movement;
     }
+    distanceTo(other: Planet) {
+        return Math.sqrt(Math.pow(this.drawInfo.x - other.drawInfo.x, 2) + Math.pow(this.drawInfo.y - other.drawInfo.y, 2))
+    }
+    isCollision(other: Planet) {
+        return this.distanceTo(other) < this.planetInfo.r + other.planetInfo.r;
+    }
+    combine(p: Planet) {
+        let newMass = p.planetInfo.m + this.planetInfo.m;
+        let newRadius = p.planetInfo.r + this.planetInfo.r;
+        let newX = (this.drawInfo.x + p.drawInfo.x) / 2;
+        let newY = (this.drawInfo.y + p.drawInfo.y) / 2;
+        let newA = this.movement.a + p.movement.a / 2;
+        let newV = this.movement.v + p.movement.v / 2;
+        let newDirX = this.movement.direction.x + p.movement.direction.x / 2;
+        let newDirY = this.movement.direction.y + p.movement.direction.y / 2;
 
+		return new Planet({ planet: { r: newRadius, m: newMass }, draw: { x: newX, y: newY, color: this.drawInfo.color }, movement: { a: newA, v: newV, direction: { x: newDirX, y: newDirY } } })
+    }
     attractTo(other: Planet) {
-        let d = Math.sqrt(Math.pow(this.drawInfo.x - other.drawInfo.x, 2) + Math.pow(this.drawInfo.y - other.drawInfo.y, 2));
+        let d = this.distanceTo(other);
 
         let F = (G * this.planetInfo.m * other.planetInfo.m) / (d * d);
         
