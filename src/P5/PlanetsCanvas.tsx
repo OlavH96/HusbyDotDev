@@ -7,10 +7,10 @@ import { PlanetInfo } from './Planet';
 const canvas = { w: 1000, h: 1000 };
 
 function attractAll(planetoids: Planet[]) {
-	
-	planetoids.forEach(p => { 
-		
-		planetoids.forEach(p1 => { 
+
+	planetoids.forEach(p => {
+
+		planetoids.forEach(p1 => {
 			if (p != p1) {
 				p.attractTo(p1);
 			}
@@ -20,16 +20,11 @@ function attractAll(planetoids: Planet[]) {
 }
 function handleCollisions(planetoids: Planet[]) {
 
-	planetoids.forEach(p => { 
-		
-		planetoids.filter(p1 =>p1 !== p ).forEach(p1 => { 
-			if (p.isCollision(p1)) {
-				let newMass = p.planetInfo.m + p1.planetInfo.m;
-				let newRadius = p.planetInfo.r + p1.planetInfo.r;
+	planetoids.forEach(p => {
 
-				planetoids.push(
-					p.combine(p1)
-				);
+		planetoids.filter(p1 => p1 !== p).forEach(p1 => {
+			if (p.isCollision(p1)) {
+				planetoids.push(p.combine(p1));
 				planetoids.splice(planetoids.indexOf(p), 1);
 				planetoids.splice(planetoids.indexOf(p1), 1);
 			}
@@ -41,11 +36,11 @@ function handleCollisions(planetoids: Planet[]) {
 export default function PlanetsCanvas() {
 
 	var sun = new Planet({ planet: { r: 20, m: 333054 }, draw: { x: canvas.w / 2, y: canvas.h / 2, color: "yellow" }, movement: { a: 0, v: 0, direction: { x: 0, y: 0 } } });
-	var mercury = new Planet({ planet: {r: 5, m: 0.0553}, draw: { x: 600, y: 200, color: "gray" }, movement:{ a: 0, v: 0.001, direction: { x: 0, y: 0 } }});
-	var venus = new Planet({ planet: {r: 5, m: 0.815}, draw: { x: 0, y: 700, color: "orange" }, movement:{ a: 0, v: 0.001, direction: { x: 0, y: 0 } }});
-	var earth = new Planet({ planet: {r: 10, m: 1}, draw: { x: 800, y: 200, color: "#71b780" }, movement:{ a: 0, v: 0.001, direction: { x: 0, y: 0 } }});
+	var mercury = new Planet({ planet: { r: 5, m: 0.0553 }, draw: { x: 600, y: 200, color: "gray" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
+	var venus = new Planet({ planet: { r: 5, m: 0.815 }, draw: { x: 0, y: 700, color: "orange" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
+	var earth = new Planet({ planet: { r: 10, m: 1 }, draw: { x: 800, y: 200, color: "#71b780" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
 	var mars = new Planet({ planet: { r: 10, m: 0.107 }, draw: { x: 0, y: 0, color: "red" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
-	
+
 	//let planets = [earth];
 	let planets = [mercury, venus, earth, mars];
 
@@ -59,7 +54,7 @@ export default function PlanetsCanvas() {
 		p5.background("#282c34");
 
 		planets.forEach(p => p.attractTo(sun));
-		
+
 		attractAll(planets)
 		handleCollisions(planets)
 
@@ -69,9 +64,9 @@ export default function PlanetsCanvas() {
 	const add = (p5: any) => {
 		console.log(p5);
 		if (!(p5.mouseX > 0 && p5.mouseY > 0)) return;
-		
+
 		planets.push(
-		  new Planet({ planet: { r: 10, m: 0.107 }, draw: { x: p5.mouseX, y: p5.mouseY, color: "white" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } })
+			new Planet({ planet: { r: 10, m: 0.107 }, draw: { x: p5.mouseX, y: p5.mouseY, color: "white" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } })
 		);
 	}
 

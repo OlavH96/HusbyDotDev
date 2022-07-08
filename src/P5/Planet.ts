@@ -48,8 +48,8 @@ export default class Planet {
         return this.distanceTo(other) < this.planetInfo.r + other.planetInfo.r;
     }
     combine(p: Planet) {
-        let newMass = p.planetInfo.m + this.planetInfo.m;
-        let newRadius = p.planetInfo.r + this.planetInfo.r;
+        let newMass = p.planetInfo.m + this.planetInfo.m / 2;
+        let newRadius = p.planetInfo.r + this.planetInfo.r / 2;
         let newX = (this.drawInfo.x + p.drawInfo.x) / 2;
         let newY = (this.drawInfo.y + p.drawInfo.y) / 2;
         let newA = this.movement.a + p.movement.a / 2;
