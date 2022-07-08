@@ -33,6 +33,18 @@ function handleCollisions(planetoids: Planet[]) {
 
 }
 
+function handleEdgeCollision(planetoids: Planet[]) {
+	planetoids.forEach(p => {
+
+		if (p.drawInfo.x > canvas.w || p.drawInfo.x <= 0 || p.drawInfo.y > canvas.h || p.drawInfo.y <= 0 ) {
+			p.movement.direction.x *= -1;
+			p.movement.direction.y *= -1;
+		}
+
+	});
+
+}
+
 export default function PlanetsCanvas() {
 
 	var sun = new Planet({ planet: { r: 20, m: 333054 }, draw: { x: canvas.w / 2, y: canvas.h / 2, color: "yellow" }, movement: { a: 0, v: 0, direction: { x: 0, y: 0 } } });
@@ -57,6 +69,7 @@ export default function PlanetsCanvas() {
 
 		attractAll(planets)
 		handleCollisions(planets)
+		//handleEdgeCollision(planets);
 
 		sun.draw(p5);
 		planets.forEach(p => p.draw(p5));

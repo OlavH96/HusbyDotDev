@@ -65,8 +65,13 @@ export default class Planet {
         let F = (G * this.planetInfo.m * other.planetInfo.m) / (d * d);
         
         let dirV = { x: other.drawInfo.x - this.drawInfo.x, y: other.drawInfo.y - this.drawInfo.y };
+
+        if ((dirV.x / d) - this.movement.direction.x < 0 || (dirV.y / d) - this.movement.direction.y < 0) {
+            this.movement.a -= F / this.planetInfo.m;
+
+        }
         
-        this.movement.a += F;
+        this.movement.a += F / this.planetInfo.m;
         this.movement.direction.x += (dirV.x / d);
         this.movement.direction.y += (dirV.y / d);
 
