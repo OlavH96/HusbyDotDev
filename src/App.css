@@ -3,8 +3,8 @@
   display: grid;
   grid-template:
     "H H H" 5rem
-    "C C C" 1fr
-    "C C C" 1fr
+    "C C C" 1fr 
+    "P P P" 3fr
     / 1fr 1fr 1fr;
 
   height: 100vh;
@@ -18,6 +18,9 @@
 
 .content {
   grid-area: C;
+}
+.planets {
+  grid-area: P;
 }
 
 :root {

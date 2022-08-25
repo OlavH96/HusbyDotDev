@@ -4,7 +4,10 @@ import p5Types from "p5"; //Import this for typechecking and intellisense
 import Planet from "./Planet"; //Import this for typechecking and intellisense
 import { PlanetInfo } from './Planet';
 
-const canvas = { w: 1000, h: 1000 };
+let div : Element = document.getElementsByClassName("planets")[0];
+console.log(div);
+
+const canvas = { w: window.innerWidth, h: window.innerHeight };
 
 function attractAll(planetoids: Planet[]) {
 
@@ -53,8 +56,8 @@ export default function PlanetsCanvas() {
 	var earth = new Planet({ planet: { r: 10, m: 1 }, draw: { x: 800, y: 200, color: "#71b780" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
 	var mars = new Planet({ planet: { r: 10, m: 0.107 }, draw: { x: 0, y: 0, color: "red" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
 
-	//let planets = [earth];
-	let planets = [mercury, venus, earth, mars];
+	let planets = [earth];
+	//let planets = [mercury, venus, earth, mars];
 
 	const setup = (p5: any, canvasParentRef: Element) => {
 		// use parent to render the canvas in this ref
@@ -65,9 +68,9 @@ export default function PlanetsCanvas() {
 	const draw = (p5: any) => {
 		p5.background("#282c34");
 
+		attractAll(planets)
 		planets.forEach(p => p.attractTo(sun));
 
-		attractAll(planets)
 		handleCollisions(planets)
 		//handleEdgeCollision(planets);
 

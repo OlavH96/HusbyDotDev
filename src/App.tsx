@@ -7,12 +7,14 @@ import PlanetsCanvas from './P5/PlanetsCanvas';
 function App() {
   return (
     <div className="App">
-      <div className='nav'>
+      {/* <div className='nav'>
         <Navbar />
-      </div>
+      </div> */}
       <div className='content'>
-        {/* <Content /> */}
-        <PlanetsCanvas/>
+        <Content />
+        <div className='planets'>
+          <PlanetsCanvas/>
+        </div>
       </div>
     </div>
   );
