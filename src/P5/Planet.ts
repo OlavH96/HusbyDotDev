@@ -66,6 +66,8 @@ export default class Planet {
 		return new Planet({ planet: { r: newRadius, m: newMass }, draw: { x: newX, y: newY, color: this.drawInfo.color }, movement: { a: newA, v: newV, direction: { x: newDirX, y: newDirY } } })
     }
     attractTo(other: Planet) {
+        console.log("---Attract To---");
+        
         let d = this.distanceTo(other);
 
         let F = (G * this.planetInfo.m * other.planetInfo.m) / (d * d);
@@ -78,10 +80,13 @@ export default class Planet {
         else {
             this.movement.a += F / this.planetInfo.m;
         }
+
         
         this.movement.direction.x += (dirV.x / d);
         this.movement.direction.y += (dirV.y / d);
 
+        console.log("Direction",dirV.x/d, dirV.y/d);
+        console.log("Direction",this.movement.direction);
         console.log(this.planetInfo.m, other.planetInfo.m);
         console.log("Force",F);
         
@@ -90,9 +95,13 @@ export default class Planet {
     }
 
     calculateXYChange() {
-        //this.movement.v += this.movement.a;
-        this.drawInfo.x += this.movement.direction.x * this.movement.v;
-        this.drawInfo.y += this.movement.direction.y * this.movement.v;
+        console.log("XY Change");
+        console.log(this.movement.direction);
+        
+        
+        this.movement.v -= this.movement.a;
+        this.drawInfo.x += this.movement.direction.x * this.movement.v ;
+        this.drawInfo.y += this.movement.direction.y * this.movement.v ;
     }
 
     draw(p5: p5Types) {
