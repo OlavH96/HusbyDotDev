@@ -53,7 +53,7 @@ export default function PlanetsCanvas() {
 	var sun = new Planet({ planet: { r: 20, m: 333054 }, draw: { x: canvas.w / 2, y: canvas.h / 2, color: "yellow" }, movement: { a: 0, v: 0, direction: { x: 0, y: 0 } } });
 	var mercury = new Planet({ planet: { r: 5, m: 0.0553 }, draw: { x: 600, y: 200, color: "gray" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
 	var venus = new Planet({ planet: { r: 5, m: 0.815 }, draw: { x: 0, y: 700, color: "orange" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
-	var earth = new Planet({ planet: { r: 10, m: 1 }, draw: { x: 800, y: 200, color: "#71b780" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
+	var earth = new Planet({ planet: { r: 10, m: 1 }, draw: { x: 800, y: 200, color: "#71b780" }, movement: { a: 0, v: 0.01, direction: { x: 200, y: 0 } } });
 	var mars = new Planet({ planet: { r: 10, m: 0.107 }, draw: { x: 0, y: 0, color: "red" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
 
 	let planets = [earth];
@@ -81,8 +81,10 @@ export default function PlanetsCanvas() {
 		console.log(p5);
 		if (!(p5.mouseX > 0 && p5.mouseY > 0)) return;
 
+		var randColor = "#" + ((1 << 24) * Math.random() | 0).toString(16);
+
 		planets.push(
-			new Planet({ planet: { r: 10, m: 0.107 }, draw: { x: p5.mouseX, y: p5.mouseY, color: "white" }, movement: { a: 0, v: 0.01, direction: { x: 100, y: 0 } } })
+			new Planet({ planet: { r: 10, m: 0.107 }, draw: { x: p5.mouseX, y: p5.mouseY, color: randColor }, movement: { a: 0, v: 0.01, direction: { x: 100, y: 0 } } })
 		);
 	}
 

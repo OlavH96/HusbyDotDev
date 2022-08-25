@@ -76,14 +76,14 @@ export default class Planet {
             this.movement.a -= F / this.planetInfo.m;
         }
         else {
-
-        this.movement.a += F / this.planetInfo.m;
+            this.movement.a += F / this.planetInfo.m;
         }
         
         this.movement.direction.x += (dirV.x / d);
         this.movement.direction.y += (dirV.y / d);
 
-        console.log(other.planetInfo.m);
+        console.log(this.planetInfo.m, other.planetInfo.m);
+        console.log("Force",F);
         
 
         this.calculateXYChange();
