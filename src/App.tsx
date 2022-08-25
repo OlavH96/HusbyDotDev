@@ -11,7 +11,7 @@ function App() {
         <Navbar />
       </div> */}
       <div className='content'>
-        <Content />
+        {/* <Content /> */}
         <div className='planets'>
           <PlanetsCanvas/>
         </div>

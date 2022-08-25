@@ -82,7 +82,7 @@ export default function PlanetsCanvas() {
 		if (!(p5.mouseX > 0 && p5.mouseY > 0)) return;
 
 		planets.push(
-			new Planet({ planet: { r: 10, m: 0.107 }, draw: { x: p5.mouseX, y: p5.mouseY, color: "white" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } })
+			new Planet({ planet: { r: 10, m: 0.107 }, draw: { x: p5.mouseX, y: p5.mouseY, color: "white" }, movement: { a: 0, v: 0.01, direction: { x: 100, y: 0 } } })
 		);
 	}
 
