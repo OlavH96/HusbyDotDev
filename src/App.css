@@ -2,7 +2,7 @@
 
   display: grid;
   grid-template:
-    "H H H" 5rem
+    ". H ." 5rem
     "C C C" 1fr 
     "P P P" 3fr
     / 1fr 1fr 1fr;
@@ -14,17 +14,19 @@
 
 .nav {
   grid-area: H;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: var(--background-color-secondary);
+  border-radius: 0 0 1rem 1rem;
+}
+
+.nav > a {
+  text-decoration: none;
+  color: var(--text-color-main);
 }
 
 .content {
   grid-area: C;
 }
-.planets {
-  grid-area: P;
-}
 
-:root {
-  color: white;
-  background-color: #282c34;
-  --text-color-main: #71b780;
-}

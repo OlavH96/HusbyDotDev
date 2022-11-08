@@ -1,20 +1,25 @@
 import React from 'react';
+import {  Route, Routes } from 'react-router-dom';
 import './App.css';
-import Navbar from './Navbar/Navbar';
 import Content from './Content/Content';
 import PlanetsCanvas from './P5/PlanetsCanvas';
+import Css from './CSS/Css';
 
 function App() {
   return (
     <div className="App">
-      {/* <div className='nav'>
-        <Navbar />
-      </div> */}
-      <div className='content'>
-        <Content />
-        <div className='planets'>
-          <PlanetsCanvas/>
-        </div>
+      <div className='nav'>
+          <a href='/'>Home</a>
+          <a href='/planets'>Planets</a>
+          <a href='/css'>CSS</a>
+      </div>
+      <div className="content">
+
+      <Routes>
+        <Route path='/' element={<Content />} />
+        <Route path='/planets' element={<PlanetsCanvas />} />
+        <Route path='/css' element={<Css/>} />
+      </Routes>
       </div>
     </div>
   );

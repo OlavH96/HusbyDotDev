@@ -1,0 +1,33 @@
+main {}
+
+section {}
+
+section h1 {
+	color: var(--text-color-main);
+}
+
+.cards {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 1rem;
+}
+
+.card {
+	width: 100px;
+	height: 100px;
+	background-color: var(--cg-blue);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	transition: scale 300ms, opacity 200ms;
+}
+
+.card:hover {
+	scale: 120%;
+}
+
+.cards:has(.card:hover) .card:not(:hover){
+	scale: .8;
+	opacity: .7;
+}

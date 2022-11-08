@@ -66,7 +66,7 @@ export default function PlanetsCanvas() {
 	};
 
 	const draw = (p5: any) => {
-		p5.background("#282c34");
+		p5.background("#32292F");
 
 		attractAll(planets)
 		planets.forEach(p => p.attractTo(sun));
