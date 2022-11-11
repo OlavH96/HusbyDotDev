@@ -2,9 +2,8 @@
 
   display: grid;
   grid-template:
-    ". H ." 5rem
+    ". H ." 2rem
     "C C C" 1fr 
-    "P P P" 3fr
     / 1fr 1fr 1fr;
 
   height: 100vh;

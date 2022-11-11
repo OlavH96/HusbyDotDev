@@ -3,8 +3,11 @@ import Sketch from 'react-p5';
 import p5Types from "p5"; //Import this for typechecking and intellisense
 import Planet from "./Planet"; //Import this for typechecking and intellisense
 import { PlanetInfo } from './Planet';
+import p5 from 'p5';
+import Star from './Star';
+type P5 = import("p5");
 
-let div : Element = document.getElementsByClassName("planets")[0];
+let div: Element = document.getElementsByClassName("planets")[0];
 console.log(div);
 
 const canvas = { w: window.innerWidth, h: window.innerHeight };
@@ -39,7 +42,7 @@ function handleCollisions(planetoids: Planet[]) {
 function handleEdgeCollision(planetoids: Planet[]) {
 	planetoids.forEach(p => {
 
-		if (p.drawInfo.x > canvas.w || p.drawInfo.x <= 0 || p.drawInfo.y > canvas.h || p.drawInfo.y <= 0 ) {
+		if (p.drawInfo.x > canvas.w || p.drawInfo.x <= 0 || p.drawInfo.y > canvas.h || p.drawInfo.y <= 0) {
 			p.movement.direction.x *= -1;
 			p.movement.direction.y *= -1;
 		}
@@ -58,15 +61,36 @@ export default function PlanetsCanvas() {
 
 	let planets = [earth];
 	//let planets = [mercury, venus, earth, mars];
+	let stars: Star[] = [];
 
 	const setup = (p5: any, canvasParentRef: Element) => {
 		// use parent to render the canvas in this ref
 		// (without that p5 will render the canvas outside of your component)
+		stars = setupStars(canvas.w, canvas.h);
 		p5.createCanvas(canvas.w, canvas.h).parent(canvasParentRef);
 	};
 
-	const draw = (p5: any) => {
-		p5.background("#32292F");
+	const setupStars = (maxX: number, maxY: number) => {
+		let stars: Star[] = [];
+		let size = 4;
+		let density = 0.00005;
+		let numLayers = 3;
+		for (let layer = 0; layer <= numLayers; layer++) {
+			for (let x = 0; x < maxX; x++) {
+				for (let y = 0; y < maxY; y++) {
+					if (Math.random() < density) {
+						let star = new Star(x, y, maxX, maxY, .5 / layer, size / layer);
+						stars.push(star);
+					}
+				}
+			}
+		}
+		return stars;
+	};
+
+
+	const draw = (p5: P5) => {
+		p5.background("black");
 
 		attractAll(planets)
 		planets.forEach(p => p.attractTo(sun));
@@ -74,6 +98,8 @@ export default function PlanetsCanvas() {
 		handleCollisions(planets)
 		//handleEdgeCollision(planets);
 
+		stars.forEach(star => star.draw(p5));
+		stars.forEach(star => star.move(1, 0));
 		sun.draw(p5);
 		planets.forEach(p => p.draw(p5));
 	};
@@ -88,7 +114,7 @@ export default function PlanetsCanvas() {
 
 	return (
 		<div>
-			<Sketch setup={setup} draw={draw} mouseClicked={add} />
+			<Sketch setup={setup} draw={(p5) => draw(p5 as any)} mouseClicked={add} />
 		</div>
 	)
 }
