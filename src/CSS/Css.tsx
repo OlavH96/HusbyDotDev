@@ -25,9 +25,7 @@ function Css() {
 						Some text
 					</div>
 				</div>
-
 			</section>
-
 		</main>
 	)
 }

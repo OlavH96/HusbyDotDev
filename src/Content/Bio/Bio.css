@@ -1,5 +1,27 @@
+@keyframes wobble {
+	0%{
+		transform: rotate(-10deg);
+	}
+	100%{
+		transform: rotate(10deg);
+	}
+}
+
+@keyframes shimmer {
+	0%{
+		color: var(--text-color-main);
+	}
+	100%{
+		color: var(--text-color-secondary);
+	}
+}
+
 .name{
 	font-size: 5rem;
 	color: var(--text-color-main);
-
+	animation: wobble 5s infinite ease-in-out alternate, shimmer 6s infinite alternate;
 }
+.name:hover {
+	animation: wobble 5s infinite ease-in-out alternate, shimmer 1s infinite alternate;
+}
+
