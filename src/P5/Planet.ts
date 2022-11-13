@@ -47,7 +47,20 @@ export default class Planet {
     isCollision(other: Planet) {
         return this.distanceTo(other) < this.planetInfo.r + other.planetInfo.r;
     }
+    angle(other: Planet): number {
+        let thisDir = this.movement.direction
+        let otherDir = other.movement.direction;
+
+        let dotProduct = (thisDir.x * thisDir.y) + (otherDir.x * otherDir.y);
+        let thisMagnitude = Math.sqrt(Math.pow(thisDir.x, 2) + Math.pow(thisDir.y,2))
+        let otherMagnitude = Math.sqrt(Math.pow(otherDir.x, 2) + Math.pow(otherDir.y, 2))
+
+        let angle = Math.acos(dotProduct / (thisMagnitude * otherMagnitude));
+
+        return angle;
+    }
     combine(p: Planet) {
+        let newColor = Math.random() < 0.5 ? this.drawInfo.color : p.drawInfo.color;
         let newMass = (p.planetInfo.m + this.planetInfo.m) / 2;
         let newRadius = (p.planetInfo.r + this.planetInfo.r) / 2;
         let newX = (this.drawInfo.x + p.drawInfo.x) / 2;
@@ -57,7 +70,7 @@ export default class Planet {
         let newDirX = (this.movement.direction.x + p.movement.direction.x) / 2;
         let newDirY = (this.movement.direction.y + p.movement.direction.y) / 2;
 
-		return new Planet({ planet: { r: newRadius, m: newMass }, draw: { x: newX, y: newY, color: this.drawInfo.color }, movement: { a: newA, v: newV, direction: { x: newDirX, y: newDirY } } })
+		return new Planet({ planet: { r: newRadius, m: newMass }, draw: { x: newX, y: newY, color: newColor}, movement: { a: newA, v: newV, direction: { x: newDirX, y: newDirY } } })
     }
     attractTo(other: Planet) {
         let d = this.distanceTo(other);

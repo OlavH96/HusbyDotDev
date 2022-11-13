@@ -29,6 +29,11 @@ function drawStars(stars: Star[], p5: p5) {
 	stars.forEach(star => star.draw(p5));
 	stars.forEach(star => star.move(1, 0));
 }
+function removePlanet(planetoids: Planet[], ...planets: Planet[]) {
+	planets.forEach(p => {
+		planetoids.splice(planetoids.indexOf(p), 1);
+	});
+}
 
 function handleCollisions(planetoids: Planet[]) {
 
@@ -36,10 +41,34 @@ function handleCollisions(planetoids: Planet[]) {
 
 		planetoids.filter(p1 => p1 !== p).forEach(p1 => {
 			if (p.isCollision(p1)) {
-				planetoids.push(p.combine(p1));
-				planetoids.splice(planetoids.indexOf(p), 1);
-				planetoids.splice(planetoids.indexOf(p1), 1);
+
+				if (p.planetInfo.r <= 2) removePlanet(planetoids, p);
+				if (p1.planetInfo.r <= 2) removePlanet(planetoids, p1);
+
+			//	let angle = p.angle(p1)
+
+				//if (angle < Math.PI / 2) {
+					//// Splinter if sharp angle
+					//let numSplinters = 3;
+					//let combined = p.combine(p1);
+					//combined.planetInfo.r /= numSplinters;
+					//combined.planetInfo.m /= numSplinters;
+					//for (let num = 0; num <= numSplinters; num++) {
+						//let newPlanet = combined;
+						//newPlanet.drawInfo.x += newPlanet.planetInfo.r*num;
+						//newPlanet.drawInfo.y += newPlanet.planetInfo.r*num;
+						//planetoids.push(newPlanet);
+					//}
+
+					//removePlanet(planetoids, p,	p1)
+
+				//}
+				//else {
+					planetoids.push(p.combine(p1));
+					removePlanet(planetoids, p, p1);
+				//}
 			}
+
 		});
 	});
 
@@ -59,10 +88,12 @@ function handleEdgeCollision(planetoids: Planet[]) {
 
 export default function PlanetsCanvas() {
 
+	
+
 	var sun = new Planet({ planet: { r: 20, m: 333054 }, draw: { x: canvas.w / 2, y: canvas.h / 2, color: "yellow" }, movement: { a: 0, v: 0, direction: { x: 0, y: 0 } } });
 	var mercury = new Planet({ planet: { r: 5, m: 0.0553 }, draw: { x: 600, y: 200, color: "gray" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
 	var venus = new Planet({ planet: { r: 5, m: 0.815 }, draw: { x: 0, y: 700, color: "orange" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
-	var earth = new Planet({ planet: { r: 10, m: 1 }, draw: { x: 800, y: 200, color: "#71b780" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
+	var earth = new Planet({ planet: { r: 10, m: 1 }, draw: { x: sun.drawInfo.x-100, y: sun.drawInfo.y-100, color: "#71b780" }, movement: { a: 0, v: 0.01, direction: { x: -200, y: 0 } } });
 	var mars = new Planet({ planet: { r: 10, m: 0.107 }, draw: { x: 0, y: 0, color: "red" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
 
 	let planets = [earth];
@@ -112,8 +143,12 @@ export default function PlanetsCanvas() {
 		console.log(p5);
 		if (!(p5.mouseX > 0 && p5.mouseY > 0)) return;
 
+		let possibleColors = ["white", "red", "yellow", "blue", "green"];
+
+		let randomColor = possibleColors[Math.floor(Math.random() * possibleColors.length)];
+
 		planets.push(
-			new Planet({ planet: { r: 10, m: 0.107 }, draw: { x: p5.mouseX, y: p5.mouseY, color: "white" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } })
+			new Planet({ planet: { r: 10, m: 0.107 }, draw: { x: p5.mouseX, y: p5.mouseY, color: randomColor }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } })
 		);
 	}
 
