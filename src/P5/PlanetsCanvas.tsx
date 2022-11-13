@@ -24,6 +24,12 @@ function attractAll(planetoids: Planet[]) {
 	});
 
 }
+
+function drawStars(stars: Star[], p5: p5) {
+	stars.forEach(star => star.draw(p5));
+	stars.forEach(star => star.move(1, 0));
+}
+
 function handleCollisions(planetoids: Planet[]) {
 
 	planetoids.forEach(p => {
@@ -98,8 +104,7 @@ export default function PlanetsCanvas() {
 		handleCollisions(planets)
 		//handleEdgeCollision(planets);
 
-		stars.forEach(star => star.draw(p5));
-		stars.forEach(star => star.move(1, 0));
+		drawStars(stars, p5);
 		sun.draw(p5);
 		planets.forEach(p => p.draw(p5));
 	};

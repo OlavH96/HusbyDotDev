@@ -10,14 +10,15 @@
   width: 100vw;
   overflow: hidden;
 }
-@media screen and (min-width: 600px){
+
+@media screen and (min-width: 600px) {
   .App {
-  grid-template-areas:
-    ". H ." 
-    "C C C";
+    grid-template-areas:
+      ". H ."
+      "C C C";
   }
-  
 }
+
 .nav {
   grid-area: H;
   display: flex;
@@ -27,7 +28,7 @@
   border-radius: 0 0 1rem 1rem;
 }
 
-.nav > a {
+.nav>a {
   text-decoration: none;
   color: var(--text-color-main);
 }
@@ -35,4 +36,3 @@
 .content {
   grid-area: C;
 }
-
