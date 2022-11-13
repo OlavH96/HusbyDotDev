@@ -2,7 +2,7 @@
 
   display: grid;
   grid-template:
-    ". H ." 2rem
+    "H H H" 2rem
     "C C C" 1fr 
     / 1fr 1fr 1fr;
 
@@ -10,7 +10,14 @@
   width: 100vw;
   overflow: hidden;
 }
-
+@media screen and (min-width: 600px){
+  .App {
+  grid-template-areas:
+    ". H ." 
+    "C C C";
+  }
+  
+}
 .nav {
   grid-area: H;
   display: flex;
