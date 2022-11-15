@@ -22,7 +22,10 @@ export default function Settings(props: Props) {
 			<label>Planet size</label>
 			<input type="number" value={props.options.planetSize} onChange={e => { props.settingsChanged({ ...props.options, planetSize: Number.parseInt(e.target.value) }) }} />
 			<label>Planet color</label>
-			<input type="color" value={props.options.planetColor} onChange={e => { props.settingsChanged({ ...props.options, planetColor: e.target.value }) }} />
+			<div>
+				<input type="color" value={props.options.planetColor} onChange={e => { props.settingsChanged({ ...props.options, planetColor: e.target.value }) }} />
+				<button onClick={e => { props.settingsChanged({ ...props.options, planetColor: "random" }) }}>Reset</button>
+			</div>
 		</div>
 	)
 }

@@ -6,7 +6,7 @@ import './Combined.css';
 const Combined = () => {
 
 	let [options, setOptions] = useState({
-		planetSize: 5,
+		planetSize: 10,
 		planetMass: 0.00001,
 		planetColor: "random"
 	} as Options)

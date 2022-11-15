@@ -92,6 +92,7 @@ class PlanetsCanvas extends React.Component {
 
 	props;
 	ref: any;
+	p5: any;
 	constructor(props: Props) {
 		super(props);
 		this.props = props;
@@ -125,6 +126,7 @@ class PlanetsCanvas extends React.Component {
 			
 			stars = setupStars(canvas.w, canvas.h);
 			p5.createCanvas(canvas.w, canvas.h).parent(canvasParentRef);
+			this.p5 = p5;
 		};
 
 		const setupStars = (maxX: number, maxY: number) => {
@@ -163,7 +165,8 @@ class PlanetsCanvas extends React.Component {
 			planets.forEach(p => p.draw(p5));
 		};
 
-		const add = (p5: any) => {
+		const add = (e: any) => {
+			let p5 = this.p5;
 			console.log(p5);
 			if (!(p5.mouseX > 0 && p5.mouseY > 0)) return;
 
@@ -180,8 +183,8 @@ class PlanetsCanvas extends React.Component {
 		}
 
 		return (
-			<div ref={this.ref} id="sketchContainer">
-				<Sketch setup={setup} draw={(p5) => draw(p5 as any)} mouseClicked={add} />
+			<div ref={this.ref} id="sketchContainer" onClick={add}>
+				<Sketch setup={setup} draw={(p5) => draw(p5 as any)}  />
 			</div>
 		)
 	}
