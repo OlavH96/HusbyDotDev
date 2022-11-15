@@ -4,6 +4,7 @@ import './App.css';
 import Content from './Content/Content';
 import PlanetsCanvas from './P5/PlanetsCanvas';
 import Css from './CSS/Css';
+import Combined from './P5/Combined';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
 
       <Routes>
         <Route path='/' element={<Content />} />
-        <Route path='/planets' element={<PlanetsCanvas />} />
+        <Route path='/planets' element={<Combined/>} />
         <Route path='/css' element={<Css/>} />
       </Routes>
       </div>
