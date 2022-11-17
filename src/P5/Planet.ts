@@ -1,7 +1,8 @@
+import p5 from 'p5';
 import p5Types from 'p5';
 
-export const g = 9.81;
-export const G = 6.6743 * 10e-11;
+// = 6.6743 * 10e-11;
+export const G = 6.6743 * 10e-3;
 
 export interface PlanetInfo {
     r: number,
@@ -52,7 +53,7 @@ export default class Planet {
         let otherDir = other.movement.direction;
 
         let dotProduct = (thisDir.x * thisDir.y) + (otherDir.x * otherDir.y);
-        let thisMagnitude = Math.sqrt(Math.pow(thisDir.x, 2) + Math.pow(thisDir.y,2))
+        let thisMagnitude = Math.sqrt(Math.pow(thisDir.x, 2) + Math.pow(thisDir.y, 2))
         let otherMagnitude = Math.sqrt(Math.pow(otherDir.x, 2) + Math.pow(otherDir.y, 2))
 
         let angle = Math.acos(dotProduct / (thisMagnitude * otherMagnitude));
@@ -70,31 +71,59 @@ export default class Planet {
         let newDirX = (this.movement.direction.x + p.movement.direction.x) / 2;
         let newDirY = (this.movement.direction.y + p.movement.direction.y) / 2;
 
-		return new Planet({ planet: { r: newRadius, m: newMass }, draw: { x: newX, y: newY, color: newColor}, movement: { a: newA, v: newV, direction: { x: newDirX, y: newDirY } } })
+        return new Planet({ planet: { r: newRadius, m: newMass }, draw: { x: newX, y: newY, color: newColor }, movement: { a: newA, v: newV, direction: { x: newDirX, y: newDirY } } })
     }
-    attractTo(other: Planet) {
+
+    drawDirectionLine(p5: p5) {
+        p5.stroke(0,255,0)
+        p5.line(this.drawInfo.x, this.drawInfo.y, this.drawInfo.x+this.movement.direction.x*50, this.drawInfo.y+this.movement.direction.y*50)
+    }
+    attractTo(other: Planet, p5: p5) {
         let d = this.distanceTo(other);
 
         let F = (G * this.planetInfo.m * other.planetInfo.m) / (d * d);
-        
-        let dirV = { x: other.drawInfo.x - this.drawInfo.x, y: other.drawInfo.y - this.drawInfo.y };
 
-        if ((dirV.x / d) - this.movement.direction.x < 0 || (dirV.y / d) - this.movement.direction.y < 0) {
-            this.movement.a -= F / this.planetInfo.m;
+        let dirV = { x: (other.drawInfo.x - this.drawInfo.x) / d, y: (other.drawInfo.y - this.drawInfo.y) / d };
+        this.movement.direction.x = dirV.x;
+        this.movement.direction.y = dirV.y;
 
+        console.log(this.movement.direction.x, d);
+
+        // acceleration should go up if we are heading towards the target, down if we are heading away
+        if (dirV.x + dirV.y > 0) {
+            // 
+            this.movement.a += F / this.planetInfo.m; // F = m*a. a = F/m
         }
-        
-        this.movement.a += F / this.planetInfo.m;
-        this.movement.direction.x += (dirV.x / d);
-        this.movement.direction.y += (dirV.y / d);
+        else {
 
+            this.movement.a -= F / this.planetInfo.m;
+          }
+        
+        //}
+        //else {
+        //this.movement.a += F / this.planetInfo.m;
+        //}
+        console.log("Force", F, this.planetInfo.m, "Distance", d, "Acceleration", this.movement.a);
+
+
+        this.movement.v += this.movement.a;
+        this.drawDirectionLine(p5);
         this.calculateXYChange();
     }
 
     calculateXYChange() {
-        //this.movement.v += this.movement.a;
-        this.drawInfo.x += this.movement.direction.x * this.movement.v;
-        this.drawInfo.y += this.movement.direction.y * this.movement.v;
+
+
+        let deltaX = this.movement.direction.x * this.movement.v;
+        let deltaY = this.movement.direction.y * this.movement.v;
+
+        console.log("Acceleration", this.movement.a);
+        console.log("Velocity", this.movement.v);
+
+        console.log("Delta x", deltaX);
+        console.log("Delta y", deltaY);
+        this.drawInfo.x += deltaX;
+        this.drawInfo.y += deltaY;
     }
 
     draw(p5: p5Types) {

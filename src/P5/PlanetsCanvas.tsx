@@ -11,13 +11,13 @@ type P5 = import("p5");
 
 const canvas = { w: window.innerWidth, h: window.innerHeight };
 
-function attractAll(planetoids: Planet[]) {
+function attractAll(planetoids: Planet[], p5: p5) {
 
 	planetoids.forEach(p => {
 
 		planetoids.forEach(p1 => {
 			if (p != p1) {
-				p.attractTo(p1);
+				p.attractTo(p1, p5);
 			}
 		});
 	});
@@ -102,10 +102,10 @@ class PlanetsCanvas extends React.Component {
 	}
 
 	render() {
-		var sun = new Planet({ planet: { r: 20, m: 333054 }, draw: { x: canvas.w / 2, y: canvas.h / 2, color: "yellow" }, movement: { a: 0, v: 0, direction: { x: 0, y: 0 } } });
+		var sun = new Planet({ planet: { r: 20, m: 10}, draw: { x: canvas.w / 2, y: canvas.h / 2, color: "yellow" }, movement: { a: 0, v: 10, direction: { x: 1, y: 0 } } });
 		var mercury = new Planet({ planet: { r: 5, m: 0.0553 }, draw: { x: 600, y: 200, color: "gray" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
 		var venus = new Planet({ planet: { r: 5, m: 0.815 }, draw: { x: 0, y: 700, color: "orange" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
-		var earth = new Planet({ planet: { r: 10, m: 1 }, draw: { x: sun.drawInfo.x - 100, y: sun.drawInfo.y - 100, color: "#71b780" }, movement: { a: 0, v: 0.01, direction: { x: -200, y: 0 } } });
+		var earth = new Planet({ planet: { r: 10, m: 1 }, draw: { x: sun.drawInfo.x - 100, y: sun.drawInfo.y - 100, color: "#71b780" }, movement: { a: 0, v: 0, direction: { x: 0, y: 0 } } });
 		var mars = new Planet({ planet: { r: 10, m: 0.107 }, draw: { x: 0, y: 0, color: "red" }, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } });
 
 		let planets = [earth];
@@ -149,20 +149,18 @@ class PlanetsCanvas extends React.Component {
 
 
 		const draw = (p5: P5) => {
-
-			console.log(this.props.options.planetSize);
-
 			p5.background("black");
 
-			attractAll(planets)
-			planets.forEach(p => p.attractTo(sun));
+			attractAll(planets, p5)
+			planets.forEach(p => p.attractTo(sun, p5));
 
 			handleCollisions(planets)
 			//handleEdgeCollision(planets);
 
-			drawStars(stars, p5);
+			//drawStars(stars, p5);
 			sun.draw(p5);
 			planets.forEach(p => p.draw(p5));
+			//planets.forEach(p => sun.attractTo(p, p5));
 		};
 
 		const add = (e: any) => {
@@ -178,7 +176,7 @@ class PlanetsCanvas extends React.Component {
 			}
 
 			planets.push(
-				new Planet({ planet: { r: this.props.options.planetSize, m: 0.107 }, draw: { x: p5.mouseX, y: p5.mouseY, color: color}, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } })
+				new Planet({ planet: { r: this.props.options.planetSize, m: this.props.options.planetMass }, draw: { x: p5.mouseX, y: p5.mouseY, color: color}, movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } } })
 			);
 		}
 
