@@ -6,7 +6,7 @@ import Bio from './Bio/Bio';
 
 export default function Content() {
 	return (
-		<div className='content'>
+		<div className='bio-content'>
 			<Bio/>
 			<div className='links'>
 				<Link url="https://github.com/OlavH96" text='GitHub' />

@@ -4,8 +4,9 @@ import Buttons from './Buttons/Buttons';
 function Css() {
 	return (
 		<main>
+			<h1>CSS display</h1>
 			<section>
-				<h1>Cool css :has magic</h1>
+				<h2>Css :has relational selector examples</h2>
 				<div className="cards">
 					<div className="card">
 						Some text
@@ -27,12 +28,15 @@ function Css() {
 					</div>
 				</div>
 			</section>
-			<hr />
 
-			{/* <section>
-				<h1>Buttons</h1>
+			<section>
+				<h2>Buttons</h2>
 				<Buttons/>
-			</section> */}
+			</section>
+
+			<section>
+				<h2>Another section</h2>
+			</section>
 		</main>
 	)
 }

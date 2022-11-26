@@ -6,7 +6,7 @@ export default function Buttons() {
 		<div className='buttons-container'>
 
 			<button className='button-base button'>A button</button>
-			<button className='button-base tilt-button'>A tilt button</button>
+			<button className='button-base tilt-button'>A button</button>
 
 		</div>
 	)

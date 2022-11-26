@@ -1,11 +1,11 @@
-.content {
+.bio-content {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
 
-.content > * {
+.bio-content > * {
 	/* margin-bottom: 5rem; */
 }
 
