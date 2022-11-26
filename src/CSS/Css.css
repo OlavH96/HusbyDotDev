@@ -1,6 +1,15 @@
-main {}
+main {
+	display: flex;
+	flex-direction: column;
+}
 
-section {}
+section {
+	display: flex;
+	flex-direction: column;
+}
+hr{
+	width: 100%;
+}
 
 section h1 {
 	color: var(--text-color-main);
