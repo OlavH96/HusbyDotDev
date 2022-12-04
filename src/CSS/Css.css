@@ -1,25 +1,25 @@
-main {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	counter-reset: h1-counter;
+.css-container {
+	display: grid;
+	grid-auto-flow: row;
+	counter-reset: h2-counter;
 }
 
-section {
-	width: 50%;
+.css-container > section {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	align-items: flex-start;
 }
+h1 {
+	color: var(--text-color-main);
+}
 
 h2::before {
-	counter-increment: h1-counter;
+	counter-increment: h2-counter;
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
-	content: counter(h1-counter) ' ';
+	content: counter(h2-counter) ' ';
 	width: 1em;
 	height: 1em;
 	position: relative;

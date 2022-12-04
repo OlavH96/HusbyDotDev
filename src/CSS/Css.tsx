@@ -3,7 +3,7 @@ import Buttons from './Buttons/Buttons';
 
 function Css() {
 	return (
-		<main>
+		<main className="css-container">
 			<h1>CSS display</h1>
 			<section>
 				<h2>Css :has relational selector examples</h2>
@@ -36,6 +36,9 @@ function Css() {
 
 			<section>
 				<h2>Another section</h2>
+			</section>
+			<section>
+				<h2>Another section (auto numbered)</h2>
 			</section>
 		</main>
 	)
