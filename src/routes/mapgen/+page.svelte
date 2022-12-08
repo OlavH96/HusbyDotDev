@@ -13,7 +13,7 @@
 			p5.createCanvas(canvas.w, canvas.h);
 		};
 		p5.draw = () => {
-			p5.background('black');
+			p5.background('white');
 
 			let y = 100;
 			let nodes: Node[][] = [];

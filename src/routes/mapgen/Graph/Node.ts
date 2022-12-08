@@ -16,13 +16,16 @@ export default class Node {
 
 	draw(p5: p5): void {
 		let textSize = 16;
+		let circleSize = 20;
 		p5.push();
 		p5.fill(this.props.color);
 		p5.stroke(this.props.color);
 		p5.textSize(textSize);
 		p5.text(this.props.name, this.props.x + textSize, this.props.y - textSize);
 
-		p5.circle(this.props.x, this.props.y, 10);
+		p5.circle(this.props.x, this.props.y, circleSize);
+		p5.fill("white");
+		p5.circle(this.props.x, this.props.y, circleSize*0.8);
 		p5.pop();
 	}
 	lineTo(p5: p5, other: Node): void {
