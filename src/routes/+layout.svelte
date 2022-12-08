@@ -1,4 +1,5 @@
 <script lang="ts">
+	import './app.css';
 	import Link from "$lib/components/Link.svelte";
 
 </script>
@@ -15,7 +16,7 @@
 	</div>
 </div>
 
-<style global>
+<style global lang="postcss">
 	body {
 		margin: 0;
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
@@ -81,5 +82,12 @@
 		display: flex;
 		justify-content: center;
 		align-items: flex-start;
+	}
+	/***/
+	button {
+		border: 1px solid black;
+		background-color: #071e22;
+		color: white;
+		border-radius: .2rem;
 	}
 </style>

@@ -23,16 +23,14 @@
 </script>
 
 <main>
-	<h1>Settings</h1>
-
-	<div class="inputs">
-		<button class="new-row" on:click={newRow}>New Row</button>
+	<div class="flex flex-col gap-2 m-2">
+		<button class="w-fit" on:click={newRow}>New Row</button>
 		{#each $mapgenParams as row}
-		<div class="row">
+		<div class="flex flex-row">
 			<button on:click={() => deleteRow(row)}>Delete</button>
-			<div class="node-inputs">
+			<div class="node-inputs flex flex-row">
 				{#each row.nodes as node}
-				<div>
+				<div class="flex flex-row">
 					<label for="">Name</label>
 					<input type="text" bind:value={node.name} on:focus|once={newNode(row)}>
 				</div>
