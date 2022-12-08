@@ -1,17 +1,16 @@
 <script lang="ts">
-	import Link from "../components/Link.svelte";
+	import Link from '../components/Link.svelte';
 </script>
 
 <div class="App">
-
-<nav>
-	<Link url="/" text="Home" border={false}/>
-	<Link url="/planets" text="Planets" border={false}/>
-	<Link url="/CSS" text="Css" border={false}/>
-</nav>
-<div class="content">
-	<slot />
-</div>
+	<nav>
+		<Link url="/" text="Home" border={false} />
+		<Link url="/planets" text="Planets" border={false} />
+		<Link url="/CSS" text="Css" border={false} />
+	</nav>
+	<div class="content">
+		<slot />
+	</div>
 </div>
 
 <style global>
