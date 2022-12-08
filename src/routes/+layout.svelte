@@ -8,6 +8,7 @@
 		<Link url="/" text="Home" border={false} />
 		<Link url="/planets" text="Planets" border={false} />
 		<Link url="/CSS" text="Css" border={false} />
+		<Link url="/mapgen" text="MapGen" border={false} />
 	</nav>
 	<div class="content">
 		<slot />

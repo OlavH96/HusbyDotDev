@@ -10,3 +10,13 @@ export const planetParams = writable<PlanetOptions>({
 	planetMass: 1,
 	planetColor: 'random'
 } as PlanetOptions);
+
+export type MapGenNode = {
+	name: string;
+};
+export type MapGenParam = {
+	nodes: MapGenNode[]
+};
+export const mapgenParams = writable<MapGenParam[]>([
+	{ nodes: [{ name: "Test" }] }
+])
