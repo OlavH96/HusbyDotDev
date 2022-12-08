@@ -16,8 +16,7 @@
 		mapgenParams.set([...$mapgenParams, newParam]);
 	}
 
-	function newNode(row: MapGenParam, currentNode: MapGenNode): void {
-		if (row.nodes[row.nodes.length - 1] !== currentNode) return;
+	function newNode(row: MapGenParam): void {
 		row.nodes.push({
 			name: ''
 		});
@@ -44,15 +43,13 @@
 		{#each $mapgenParams as row}
 			<div class="flex gap-2 items-center w-full">
 				<Button on:click={() => deleteRow(row)}>Delete</Button>
-				<div class="flex flex-row justify-center items-center">
+				<Plus on:click={() => newNode(row)} />
+				<div class="flex flex-row justify-center items-center gap-2">
 					{#each row.nodes as node}
 						<div class="flex flex-row justify-center items-center gap-2">
 							<Label for="">Name</Label>
 							<Input type="text" bind:value={node.name} />
-							
-							<Plus size="48" on:click={() => newNode(row, node)} />
-
-							<Button on:click={() => deleteNode(row, node)}>Delete</Button>
+							<Button on:click={() => deleteNode(row, node)} tabindex="-1">Delete</Button>
 						</div>
 					{/each}
 				</div>
