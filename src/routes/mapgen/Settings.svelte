@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { mapgenParams, type MapGenNode, type MapGenParam } from '$lib/stores';
-	import { Button, Input, Label } from 'flowbite-svelte';
+	import { Button, Dropdown, Input, Label, Select } from 'flowbite-svelte';
 	import {Plus} from 'svelte-heros-v2'
+	import { Direction } from './Graph/MapGen';
 
 	function deleteRow(row: MapGenParam) {
 		mapgenParams.update((items) => {
@@ -11,7 +12,9 @@
 	}
 	function newRow() {
 		let newParam = {
-			nodes: [{ name: 'test' }]
+			nodes: [{ name: 'test' }],
+			color: "black",
+			direction: Direction.E
 		} as MapGenParam;
 		mapgenParams.set([...$mapgenParams, newParam]);
 	}
@@ -54,6 +57,9 @@
 					{/each}
 				</div>
 				<div class="ml-auto mr-4 justify-self-end flex gap-2">
+
+				<Select items={Object.keys(Direction).map(v => { return{value:v, name:v} })} bind:value={row.direction}/>
+				{Object.keys(Direction)}
 				<Button class="" on:click={() => duplicateRow(row)}>Duplicate</Button>
 				<Input type="color" class="h-10 w-10 !p-0 !border-0" bind:value={row.color} />
 				</div>

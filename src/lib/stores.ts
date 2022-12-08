@@ -1,3 +1,4 @@
+import { Direction } from '../routes/mapgen/Graph/MapGen';
 import { readable, writable } from 'svelte/store';
 
 export type PlanetOptions = {
@@ -17,10 +18,12 @@ export type MapGenNode = {
 export type MapGenParam = {
 	nodes: MapGenNode[];
 	color: string;
+	direction: Direction
 };
 export const mapgenParams = writable<MapGenParam[]>([
 	{
 		nodes: [{ name: 'Test' }],
-		color: 'firebrick'
+		color: 'black',
+		direction: Direction.E
 	}
 ]);

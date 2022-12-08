@@ -1,6 +1,15 @@
 import type { p5 } from "p5-svelte";
 import type Node from "./Node";
 
+export enum Direction {
+	N = "N",
+	E = "E",
+	W = "W",
+	S = "S",
+}
+
+export function createNode(){}
+
 export function lineToSameNames(nodes: Node[][], p5: p5) {
 
 	let nodes1d = nodes.reduce((r1, r2) => [...r1, ...r2]);
