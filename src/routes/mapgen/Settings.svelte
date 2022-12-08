@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { mapgenParams, type MapGenParam } from "$lib/stores";
+	import { mapgenParams, type MapGenNode, type MapGenParam } from "$lib/stores";
+	import {Button, Input, Label} from "flowbite-svelte";
 
 	function deleteRow(row: MapGenParam){
 		mapgenParams.update(items => {
@@ -14,28 +15,38 @@
 		mapgenParams.set([...$mapgenParams, newParam])
 	}
 
-	function newNode(row: MapGenParam) {
+	function newNode(row: MapGenParam, currentNode: MapGenNode): void {
+		if(row.nodes[row.nodes.length-1] !== currentNode) return;
 		row.nodes.push({
 			name: ""
 		});
+		mapgenParams.set($mapgenParams);
+	}
+
+	function deleteNode(row: MapGenParam, node: MapGenNode): void {
+		row.nodes.splice(
+			row.nodes.indexOf(node), 1
+		);
 		mapgenParams.set($mapgenParams);
 	}
 </script>
 
 <main>
 	<div class="flex flex-col gap-2 m-2">
-		<button class="w-fit" on:click={newRow}>New Row</button>
+		<Button class="w-fit" on:click={newRow}>New Row</Button>
 		{#each $mapgenParams as row}
-		<div class="flex flex-row">
-			<button on:click={() => deleteRow(row)}>Delete</button>
-			<div class="node-inputs flex flex-row">
+		<div class="flex gap-2 items-center">
+			<Button on:click={() => deleteRow(row)}>Delete</Button>
+			<div class="flex flex-row justify-center items-center">
 				{#each row.nodes as node}
-				<div class="flex flex-row">
-					<label for="">Name</label>
-					<input type="text" bind:value={node.name} on:focus|once={newNode(row)}>
+				<div class="flex flex-row justify-center items-center gap-2">
+					<Label for="">Name</Label>
+					<Input type="text" bind:value={node.name} on:focus={() => newNode(row, node)}/>
+					<Button on:click={() => deleteNode(row, node)}>Delete</Button>
 				</div>
 				{/each}
 			</div>
+			<Input type="color" class="w-10" bind:value={row.color}></Input>
 		</div>
 		{/each}
 	</div>
@@ -44,14 +55,5 @@
 <style>
 	main {
 		background-color: var(--cg-blue);
-	}
-	.inputs {
-		display: flex;
-		justify-content: center;
-		flex-direction: column;
-	}
-	.row {
-		display: flex;
-
 	}
 </style>

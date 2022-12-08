@@ -15,17 +15,21 @@
 			p5.background("black")
 
 			let y = 100;
+			let nodes: Node[] = [];
 			$mapgenParams.forEach(param => {
-				
-				let x = 100;
-				param.nodes.forEach(node => {
-
-				new Node({x: x, y: y, name: node.name}).draw(p5);
-				x+=100;
-
-				});
+				let rowNodes = param.nodes.map((n, i) => new Node({x: 100*(i+1), y: y, name: n.name, color: param.color}));
+				rowNodes.forEach(n => n.draw(p5));
+				rowNodes.reduce((p,c) => { p.lineTo(p5, c); return c;})
+				nodes.push(...rowNodes);
 				y += 100;
 			});
+			nodes.forEach(n => {
+				nodes.forEach(n1 => {
+					if(n.props.name === n1.props.name)
+						n.lineTo(p5, n1);
+				});
+			});
+			
 		};
 	};
 

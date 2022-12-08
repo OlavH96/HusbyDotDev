@@ -16,7 +16,7 @@
 	</div>
 </div>
 
-<style global lang="postcss">
+<style>
 	body {
 		margin: 0;
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
@@ -83,11 +83,5 @@
 		justify-content: center;
 		align-items: flex-start;
 	}
-	/***/
-	button {
-		border: 1px solid black;
-		background-color: #071e22;
-		color: white;
-		border-radius: .2rem;
-	}
+
 </style>

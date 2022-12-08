@@ -15,8 +15,12 @@ export type MapGenNode = {
 	name: string;
 };
 export type MapGenParam = {
-	nodes: MapGenNode[]
+	nodes: MapGenNode[],
+	color: string
 };
 export const mapgenParams = writable<MapGenParam[]>([
-	{ nodes: [{ name: "Test" }] }
+	{
+		nodes: [{ name: "Test" }],
+		color: "firebrick"
+	}
 ])
