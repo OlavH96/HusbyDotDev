@@ -1,7 +1,6 @@
 <script lang="ts">
 	import './app.css';
-	import Link from "$lib/components/Link.svelte";
-
+	import Link from '$lib/components/Link.svelte';
 </script>
 
 <div class="App">
@@ -83,5 +82,4 @@
 		justify-content: center;
 		align-items: flex-start;
 	}
-
 </style>
