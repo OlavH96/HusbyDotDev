@@ -147,7 +147,6 @@
 	};
 
 	const add = (e: any, p5: p5) => {
-		console.log(p5);
 		if (!(p5.mouseX > 0 && p5.mouseY > 0)) return;
 
 		let color = $planetParams.planetColor;
