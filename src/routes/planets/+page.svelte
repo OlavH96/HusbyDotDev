@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type p5 from 'p5';
 	import P5 from 'p5-svelte';
-	import { planetParams } from '../../stores';
+	import { planetParams } from '$lib/stores';
 	import Planet from './P5/Planet';
 	import Star from './P5/Star';
 	import Settings from './Settings.svelte';
@@ -173,7 +173,7 @@
 	}}
 />
 
-<Settings/>
+<Settings />
 
 <style>
 </style>

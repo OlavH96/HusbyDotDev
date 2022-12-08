@@ -16,7 +16,7 @@
 		text-decoration: none;
 	}
 
-	.border{
+	.border {
 		border: 1px solid var(--antique-white);
 		border-radius: 25px;
 	}
