@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Link from "$lib/components/Link.svelte";
-
+	import './app.css';
+	import Link from '$lib/components/Link.svelte';
 </script>
 
 <div class="App">
@@ -8,13 +8,14 @@
 		<Link url="/" text="Home" border={false} />
 		<Link url="/planets" text="Planets" border={false} />
 		<Link url="/CSS" text="Css" border={false} />
+		<Link url="/mapgen" text="MapGen" border={false} />
 	</nav>
 	<div class="content">
 		<slot />
 	</div>
 </div>
 
-<style global>
+<style>
 	body {
 		margin: 0;
 		font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
