@@ -36,8 +36,6 @@ export default class Node {
 		other.addNeighbour(this);
 	}
 	removeNeighbour(other: Node) {
-		console.log("Remving",other.props.name,"as neighbour from",this.props.name);
-		
 		if (!this.props.neighbours.includes(other)) return;
 		removeItemFromArray(this.props.neighbours, other)
 		other.removeNeighbour(this);

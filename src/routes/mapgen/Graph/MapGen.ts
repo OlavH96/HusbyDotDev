@@ -58,17 +58,6 @@ export function combineSameNames(nodes: Node[][], p5: p5) {
 		}
 	});
 
-	if (duplicates.length !== 0) {
-		console.log("DUPLICATES", duplicates);
-		duplicates.forEach(d => {
-			console.log("NAME",d.name);
-			console.log(d.array.map(d => d.props.name + "-"+d.props.y/100));
-			
-			
-		})
-	}
-	
-
 	duplicates.forEach(d => {
 
 		let avgX = d.array.map(n => n.props.x).reduce((x1, x2) => (x1 + x2) / 2);
@@ -79,7 +68,6 @@ export function combineSameNames(nodes: Node[][], p5: p5) {
 		survivingNode.props.y = avgY;
 		//survivingNode.props.neighbours.forEach(n => survivingNode.removeNeighbour(n));
 		let deleted = d.array.splice(1);
-		console.log("deleted", deleted.map(d => d.props.name+"-"+d.props.y/100));
 
 		let newNeighbors = deleted
 			.map(d => d.props.neighbours)
