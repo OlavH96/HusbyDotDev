@@ -14,6 +14,7 @@ export const planetParams = writable<PlanetOptions>({
 
 export type MapGenNode = {
 	name: string;
+	neighbours: MapGenNode[];
 };
 export type MapGenParam = {
 	nodes: MapGenNode[];
@@ -22,8 +23,22 @@ export type MapGenParam = {
 };
 export const mapgenParams = writable<MapGenParam[]>([
 	{
-		nodes: [{ name: 'Test' }],
-		color: 'black',
+		nodes: [
+			{ name: '1', neighbours: [] },
+			{ name: '2', neighbours: [] },
+			{ name: '3', neighbours: [] },
+		],
+		color: 'red',
+		direction: Direction.E
+	},
+	{
+		nodes: [
+			{ name: '4', neighbours: [] },
+			{ name: '5', neighbours: [] },
+			{ name: '6', neighbours: [] },
+		],
+		color: 'blue',
 		direction: Direction.E
 	}
+
 ]);

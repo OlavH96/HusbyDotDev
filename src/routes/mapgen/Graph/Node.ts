@@ -1,9 +1,11 @@
 import type p5 from 'p5';
+import { removeItemFromArray } from '../../../lib/Util';
 export type NodeProps = {
 	name: string;
 	x: number;
 	y: number;
 	color: string;
+	neighbours: Node[]
 };
 export default class Node {
 	props: NodeProps;
@@ -27,6 +29,18 @@ export default class Node {
 		p5.fill("white");
 		p5.circle(this.props.x, this.props.y, circleSize*0.8);
 		p5.pop();
+	}
+	addNeighbour(other: Node) {
+		if (this.props.neighbours.includes(other)) return;
+		this.props.neighbours.push(other);
+		other.addNeighbour(this);
+	}
+	removeNeighbour(other: Node) {
+		console.log("Remving",other.props.name,"as neighbour from",this.props.name);
+		
+		if (!this.props.neighbours.includes(other)) return;
+		removeItemFromArray(this.props.neighbours, other)
+		other.removeNeighbour(this);
 	}
 	lineTo(p5: p5, other: Node): void {
 		p5.push();
