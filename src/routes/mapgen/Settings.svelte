@@ -20,23 +20,22 @@
 		mapgenParams.set([...$mapgenParams, newParam]);
 	}
 
-	function newNode(row: MapGenParam): void {
-		let last = lastItemInArray(row.nodes);
-		console.log("Last is ",last.name);
-		
+	function newNode(row: MapGenParam, current: MapGenNode): void {
+		let rowindex = $mapgenParams.indexOf(row);
+		let index = row.nodes.indexOf(current);
+
 		const newNode = {
-			name: '',
-			neighbours: last ? [last] : []
+			name: `${current.name}-${index}`
 		};
-		if(last) last.neighbours.push(newNode);
-		row.nodes.push(
-			newNode
-		);
+
+		//row.nodes.push(newNode);
+		row.nodes = [...row.nodes.slice(0, index), current, newNode , ...row.nodes.slice(index+1)]
+
 		mapgenParams.set($mapgenParams);
 	}
 
 	function deleteNode(row: MapGenParam, node: MapGenNode): void {
-		node.neighbours.forEach(n => removeItemFromArray(n.neighbours, node));
+		//node.neighbours.forEach(n => removeItemFromArray(n.neighbours, node));
 		row.nodes.splice(row.nodes.indexOf(node), 1);
 		mapgenParams.set($mapgenParams);
 	}
@@ -58,13 +57,13 @@
 		{#each $mapgenParams as row}
 			<div class="flex gap-2 items-center w-full">
 				<Button on:click={() => deleteRow(row)}>Delete</Button>
-				<Plus on:click={() => newNode(row)} />
 				<div class="flex flex-row justify-center items-center gap-2">
 					{#each row.nodes as node}
 						<div class="flex flex-row justify-center items-center gap-2">
 							<Label for="">Name</Label>
 							<Input type="text" bind:value={node.name} />
 							<Button on:click={() => deleteNode(row, node)} tabindex="-1">Delete</Button>
+							<Plus on:click={() => newNode(row, node)} />
 						</div>
 					{/each}
 				</div>
