@@ -86,29 +86,39 @@
 		draw: { x: canvas.w / 2, y: canvas.h / 2, color: 'yellow' },
 		movement: { v: { x: 0, y: 0 } }
 	});
+
+	// Orbital distances scaled so Mars reaches top of screen
+	// Mars is at 1.52 AU, so if Mars is at top (y = 0), AU scale = canvas.h / 2 / 1.52
+	const AU = (canvas.h / 2) / 1.52;
+	const sunX = canvas.w / 2;
+	const sunY = canvas.h / 2;
+
+	// Calculate orbital velocity: v = sqrt(G * M / r)
+	const G = 0.01; // Must match Planet.ts
+	const orbitalVelocity = (distance: number) => Math.sqrt((G * sun.planetInfo.m) / distance);
+
 	var mercury = new Planet({
-		planet: { r: 5, m: 0.0553 },
-		draw: { x: 600, y: 200, color: 'gray' },
-		movement: { v: { x: 0, y: 0.001 } }
+		planet: { r: 4, m: 330 },
+		draw: { x: sunX, y: sunY - 0.39 * AU, color: '#8C7853' },
+		movement: { v: { x: orbitalVelocity(0.39 * AU), y: 0 } }
 	});
 	var venus = new Planet({
-		planet: { r: 5, m: 0.815 },
-		draw: { x: 0, y: 700, color: 'orange' },
-		movement: { v: { x: 0.001, y: 0 } }
+		planet: { r: 9, m: 4870 },
+		draw: { x: sunX, y: sunY - 0.72 * AU, color: '#FFC649' },
+		movement: { v: { x: orbitalVelocity(0.72 * AU), y: 0 } }
 	});
 	var earth = new Planet({
 		planet: { r: 10, m: 1000 },
-		draw: { x: sun.drawInfo.x - 100, y: sun.drawInfo.y - 100, color: '#71b780' },
-		movement: { v: { x: 0, y: 0.01 } }
+		draw: { x: sunX, y: sunY - 1.0 * AU, color: '#71b780' },
+		movement: { v: { x: orbitalVelocity(1.0 * AU), y: 0 } }
 	});
 	var mars = new Planet({
-		planet: { r: 10, m: 0.107 },
-		draw: { x: 0, y: 0, color: 'red' },
-		movement: { v: { x: 0, y: 0.001 } }
+		planet: { r: 5, m: 640 },
+		draw: { x: sunX, y: sunY - 1.52 * AU, color: '#CD5C5C' },
+		movement: { v: { x: orbitalVelocity(1.52 * AU), y: 0 } }
 	});
 
-	let planets = [earth];
-	//let planets = [mercury, venus, earth, mars];
+	let planets = [mercury, venus, earth, mars];
 	let stars: Star[] = [];
 
 	// Drag state for setting initial velocity
