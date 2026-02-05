@@ -12,9 +12,9 @@
 	</section>
 	<section>
 		<label>Planet mass</label>
-		<input type="range" min="0.1" max="10" bind:value={$planetParams.planetMass} />
+		<input type="range" min="100" max="10000" step="100" bind:value={$planetParams.planetMass} />
 		<p>{$planetParams.planetMass}</p>
-		<button on:click={(e) => ($planetParams.planetMass = 1)}>Reset</button>
+		<button on:click={(e) => ($planetParams.planetMass = 1000)}>Reset</button>
 	</section>
 	<section>
 		<label>Planet color</label>

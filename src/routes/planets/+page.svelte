@@ -82,7 +82,7 @@
 	}
 
 	var sun = new Planet({
-		planet: { r: 20, m: 333054 },
+		planet: { r: 20, m: 50000 },
 		draw: { x: canvas.w / 2, y: canvas.h / 2, color: 'yellow' },
 		movement: { v: { x: 0, y: 0 } }
 	});
@@ -97,7 +97,7 @@
 		movement: { v: { x: 0.001, y: 0 } }
 	});
 	var earth = new Planet({
-		planet: { r: 10, m: 1 },
+		planet: { r: 10, m: 1000 },
 		draw: { x: sun.drawInfo.x - 100, y: sun.drawInfo.y - 100, color: '#71b780' },
 		movement: { v: { x: 0, y: 0.01 } }
 	});
@@ -110,6 +110,10 @@
 	let planets = [earth];
 	//let planets = [mercury, venus, earth, mars];
 	let stars: Star[] = [];
+
+	// Drag state for setting initial velocity
+	let dragStart: { x: number; y: number } | null = null;
+	let isDragging = false;
 
 	const setup = (p5: any) => {
 		stars = setupStars(canvas.w, canvas.h);
@@ -141,7 +145,7 @@
 
 		attractAll(planets);
 		planets.forEach((p) => p.attractTo(sun));
-		
+
 		updatePositions(planets);
 
 		handleCollisions(planets);
@@ -150,10 +154,36 @@
 		drawStars(stars, p5);
 		sun.draw(p5);
 		planets.forEach((p) => p.draw(p5));
+
+		// Draw velocity arrow and planet preview during drag
+		if (isDragging && dragStart) {
+			// Draw planet preview at drag start position
+			let color = $planetParams.planetColor;
+			if (color == 'random') {
+				color = 'white'; // Use white for preview when random
+			}
+			p5.fill(color);
+			p5.circle(dragStart.x, dragStart.y, 2 * $planetParams.planetSize);
+			
+			// Draw velocity arrow
+			p5.stroke('white');
+			p5.strokeWeight(2);
+			p5.line(dragStart.x, dragStart.y, p5.mouseX, p5.mouseY);
+			// Draw arrowhead
+			let angle = Math.atan2(p5.mouseY - dragStart.y, p5.mouseX - dragStart.x);
+			let arrowSize = 10;
+			p5.fill('white');
+			p5.noStroke();
+			p5.push();
+			p5.translate(p5.mouseX, p5.mouseY);
+			p5.rotate(angle);
+			p5.triangle(0, 0, -arrowSize, -arrowSize / 2, -arrowSize, arrowSize / 2);
+			p5.pop();
+		}
 	};
 
 	const add = (e: any, p5: p5) => {
-		if (!(p5.mouseX > 0 && p5.mouseY > 0)) return;
+		if (!(p5.mouseX > 0 && p5.mouseY > 0) || !dragStart) return;
 
 		let color = $planetParams.planetColor;
 		if (color == 'random') {
@@ -161,13 +191,35 @@
 			color = possibleColors[Math.floor(Math.random() * possibleColors.length)];
 		}
 
+		// Calculate velocity from drag distance and direction
+		let velocityScale = 0.05; // Adjust this to control sensitivity
+		let vx = (p5.mouseX - dragStart.x) * velocityScale;
+		let vy = (p5.mouseY - dragStart.y) * velocityScale;
+
 		planets.push(
 			new Planet({
 				planet: { r: $planetParams.planetSize, m: $planetParams.planetMass },
-				draw: { x: p5.mouseX, y: p5.mouseY, color: color },
-				movement: { v: { x: 0, y: 0.001 } }
+				draw: { x: dragStart.x, y: dragStart.y, color: color },
+				movement: { v: { x: vx, y: vy } }
 			})
 		);
+
+		// Reset drag state
+		dragStart = null;
+		isDragging = false;
+	};
+
+	const onMousePressed = (p5: p5) => {
+		if (p5.mouseX > 0 && p5.mouseY > 0) {
+			dragStart = { x: p5.mouseX, y: p5.mouseY };
+			isDragging = true;
+		}
+	};
+
+	const onMouseReleased = (e: any, p5: p5) => {
+		if (isDragging) {
+			add(e, p5);
+		}
 	};
 </script>
 
@@ -175,7 +227,8 @@
 	sketch={(p5) => {
 		p5.draw = () => draw(p5);
 		p5.setup = () => setup(p5);
-		p5.mouseClicked = (e) => add(e, p5);
+		p5.mousePressed = () => onMousePressed(p5);
+		p5.mouseReleased = (e) => onMouseReleased(e, p5);
 	}}
 />
 
