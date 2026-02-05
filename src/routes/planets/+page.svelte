@@ -17,6 +17,10 @@
 		});
 	}
 
+	function updatePositions(planetoids: Planet[]) {
+		planetoids.forEach((p) => p.updatePosition());
+	}
+
 	function drawStars(stars: Star[], p5: p5) {
 		stars.forEach((star) => star.draw(p5));
 		stars.forEach((star) => star.move(1, 0));
@@ -71,8 +75,8 @@
 				p.drawInfo.y > canvas.h ||
 				p.drawInfo.y <= 0
 			) {
-				p.movement.direction.x *= -1;
-				p.movement.direction.y *= -1;
+				p.movement.v.x *= -1;
+				p.movement.v.y *= -1;
 			}
 		});
 	}
@@ -80,27 +84,27 @@
 	var sun = new Planet({
 		planet: { r: 20, m: 333054 },
 		draw: { x: canvas.w / 2, y: canvas.h / 2, color: 'yellow' },
-		movement: { a: 0, v: 0, direction: { x: 0, y: 0 } }
+		movement: { v: { x: 0, y: 0 } }
 	});
 	var mercury = new Planet({
 		planet: { r: 5, m: 0.0553 },
 		draw: { x: 600, y: 200, color: 'gray' },
-		movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } }
+		movement: { v: { x: 0, y: 0.001 } }
 	});
 	var venus = new Planet({
 		planet: { r: 5, m: 0.815 },
 		draw: { x: 0, y: 700, color: 'orange' },
-		movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } }
+		movement: { v: { x: 0.001, y: 0 } }
 	});
 	var earth = new Planet({
 		planet: { r: 10, m: 1 },
 		draw: { x: sun.drawInfo.x - 100, y: sun.drawInfo.y - 100, color: '#71b780' },
-		movement: { a: 0, v: 0.01, direction: { x: -200, y: 0 } }
+		movement: { v: { x: 0, y: 0.01 } }
 	});
 	var mars = new Planet({
 		planet: { r: 10, m: 0.107 },
 		draw: { x: 0, y: 0, color: 'red' },
-		movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } }
+		movement: { v: { x: 0, y: 0.001 } }
 	});
 
 	let planets = [earth];
@@ -137,6 +141,8 @@
 
 		attractAll(planets);
 		planets.forEach((p) => p.attractTo(sun));
+		
+		updatePositions(planets);
 
 		handleCollisions(planets);
 		//handleEdgeCollision(planets);
@@ -159,7 +165,7 @@
 			new Planet({
 				planet: { r: $planetParams.planetSize, m: $planetParams.planetMass },
 				draw: { x: p5.mouseX, y: p5.mouseY, color: color },
-				movement: { a: 0, v: 0.001, direction: { x: 0, y: 0 } }
+				movement: { v: { x: 0, y: 0.001 } }
 			})
 		);
 	};
