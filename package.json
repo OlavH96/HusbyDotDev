@@ -36,6 +36,9 @@
 		"vite": "^3.2.4"
 	},
 	"type": "module",
+	"engines": {
+		"node": ">=24.0.0"
+	},
 	"dependencies": {
 		"p5-svelte": "^3.1.2",
 		"svelte-heros-v2": "^0.2.4"
