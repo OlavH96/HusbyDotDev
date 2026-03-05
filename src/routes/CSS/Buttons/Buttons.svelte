@@ -16,11 +16,13 @@
 
 	.button-base {
 		--border-width: 0.1em;
-		--background-color: crimson;
-		--border-color: white;
+		--background-color: rgba(88, 133, 175, 0.82);
+		--border-color: rgba(254, 239, 221, 0.9);
 
 		background: var(--background-color);
 		font-size: 1rem;
+		font-weight: 600;
+		color: var(--antique-white);
 		border: none;
 		padding: 1em 2em;
 	}
@@ -49,14 +51,14 @@
 			0% calc(var(--bevel-distance))
 		);
 
-		border: 1px solid white;
+		border: 1px solid rgba(254, 239, 221, 0.9);
 		transition: transform 250ms ease;
 	}
 	.tilt-button::before {
 		content: '';
 		display: inline-block;
 		position: relative;
-		background-color: white;
+		background-color: rgba(254, 239, 221, 0.9);
 		clip-path: polygon(
 			calc(var(--bevel-distance)) 0%,
 			100% 0%,

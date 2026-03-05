@@ -34,6 +34,8 @@
 		display: grid;
 		grid-auto-flow: row;
 		counter-reset: h2-counter;
+		width: min(960px, 100%);
+		gap: 1rem;
 	}
 
 	.css-container > section {
@@ -41,8 +43,15 @@
 		flex-direction: column;
 		justify-content: flex-start;
 		align-items: flex-start;
+		gap: 0.7rem;
+		padding: 1.1rem;
+		background: rgba(7, 30, 34, 0.35);
+		border: 1px solid rgba(195, 224, 229, 0.2);
+		border-radius: 1rem;
 	}
 	h1 {
+		margin: 0;
+		font-size: clamp(1.8rem, 5vw, 2.7rem);
 		color: var(--text-color-main);
 	}
 
@@ -62,22 +71,27 @@
 	}
 
 	section h2 {
+		margin: 0;
 		color: var(--text-color-main);
 	}
 
 	.cards {
 		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-columns: repeat(3, minmax(90px, 1fr));
 		gap: 1rem;
+		width: 100%;
 	}
 
 	.card {
-		width: 100px;
-		height: 100px;
-		background-color: var(--cg-blue);
+		width: 100%;
+		aspect-ratio: 1;
+		background: rgba(88, 133, 175, 0.7);
+		border: 1px solid rgba(195, 224, 229, 0.3);
+		border-radius: 0.75rem;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		color: var(--antique-white);
 
 		transition: scale 300ms, opacity 200ms;
 	}
@@ -89,5 +103,15 @@
 	.cards:has(.card:hover) .card:not(:hover) {
 		scale: 0.8;
 		opacity: 0.7;
+	}
+
+	@media screen and (max-width: 700px) {
+		.cards {
+			grid-template-columns: repeat(2, minmax(90px, 1fr));
+		}
+
+		h2::before {
+			right: 0.5rem;
+		}
 	}
 </style>

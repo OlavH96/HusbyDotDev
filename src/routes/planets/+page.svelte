@@ -233,16 +233,48 @@
 	};
 </script>
 
-<P5
-	sketch={(p5) => {
-		p5.draw = () => draw(p5);
-		p5.setup = () => setup(p5);
-		p5.mousePressed = () => onMousePressed(p5);
-		p5.mouseReleased = (e) => onMouseReleased(e, p5);
-	}}
-/>
+<section class="planet-page">
+	<div class="canvas-shell">
+		<P5
+			sketch={(p5) => {
+				p5.draw = () => draw(p5);
+				p5.setup = () => setup(p5);
+				p5.mousePressed = () => onMousePressed(p5);
+				p5.mouseReleased = (e) => onMouseReleased(e, p5);
+			}}
+		/>
+	</div>
 
-<Settings />
+	<Settings />
+</section>
 
 <style>
+	.planet-page {
+		position: relative;
+		width: min(1100px, 100%);
+		height: clamp(480px, 76vh, 820px);
+		border-radius: 1.2rem;
+		overflow: hidden;
+		border: 1px solid rgba(195, 224, 229, 0.22);
+		box-shadow: 0 20px 50px rgba(7, 30, 34, 0.35);
+		background: rgba(7, 30, 34, 0.28);
+	}
+
+	.canvas-shell {
+		width: 100%;
+		height: 100%;
+	}
+
+	:global(.canvas-shell canvas) {
+		display: block;
+		width: 100% !important;
+		height: 100% !important;
+	}
+
+	@media screen and (max-width: 720px) {
+		.planet-page {
+			height: clamp(430px, 68vh, 760px);
+			border-radius: 1rem;
+		}
+	}
 </style>

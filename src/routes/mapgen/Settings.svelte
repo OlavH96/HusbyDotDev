@@ -51,11 +51,11 @@
 	}
 </script>
 
-<main>
-	<div class="flex flex-col gap-2 m-2 w-full">
+<main class="settings-panel">
+	<div class="settings-stack">
 		<Button class="w-fit" on:click={newRow}>New Row</Button>
 		{#each $mapgenParams as row}
-			<div class="flex gap-2 items-center w-full">
+			<div class="row-card flex gap-2 items-center w-full">
 				<Button on:click={() => deleteRow(row)}>Delete</Button>
 				<div class="flex flex-row justify-center items-center gap-2">
 					{#each row.nodes as node}
@@ -68,9 +68,7 @@
 					{/each}
 				</div>
 				<div class="ml-auto mr-4 justify-self-end flex gap-2">
-
 				<Select items={Object.keys(Direction).map(v => { return{value:v, name:v} })} bind:value={row.direction}/>
-				{Object.keys(Direction)}
 				<Button class="" on:click={() => duplicateRow(row)}>Duplicate</Button>
 				<Input type="color" class="h-10 w-10 !p-0 !border-0" bind:value={row.color} />
 				</div>
@@ -81,6 +79,27 @@
 
 <style>
 	main {
-		background-color: var(--cg-blue);
+		width: 100%;
+	}
+
+	.settings-stack {
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+		padding: 0.2rem;
+	}
+
+	.row-card {
+		padding: 0.55rem;
+		border-radius: 0.75rem;
+		background: rgba(195, 224, 229, 0.08);
+		border: 1px solid rgba(195, 224, 229, 0.2);
+	}
+
+	@media screen and (max-width: 860px) {
+		.row-card {
+			flex-direction: column;
+			align-items: flex-start;
+		}
 	}
 </style>
