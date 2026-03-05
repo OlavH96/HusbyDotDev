@@ -37,7 +37,7 @@
 	},
 	"type": "module",
 	"engines": {
-		"node": ">=24.0.0"
+		"node": "18.x"
 	},
 	"dependencies": {
 		"p5-svelte": "^3.1.2",
